@@ -1,0 +1,17 @@
+------------------------------ ft_putnbr -------------------------------
+| Required files: ft_putnbr.c                                          |
+|                                                                      |
+| Authorized functions:                                                |
+| write                                                                |
+|                                                                      |
+| Ecrire une fonction qui affiche un nombre passé en paramètre.        |
+| La fonction devra être capable d'afficher la totalité des valeurs    |
+| possibles dans une variable de type int                              |
+|                                                                      |
+| Prototype:                                                           |
+| void ft_putnbr(int nbr);                                             |
+|                                                                      |
+| Example:                                                             |
+| ft_putnbr(36) affiche "36"                                           |
+|                                                                      |
+-----------------------------------------------------------------------

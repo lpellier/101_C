@@ -1,0 +1,15 @@
+--------------------------- ft_sort_int_tab ---------------------------
+| Required files: ft_sort_int_tab.c                                   |
+|                                                                     |
+| Authorized functions:                                               |
+| none                                                                |
+|                                                                     |
+| Ecrire une fonction qui trie une tableau d'entiers                  |
+| par ordre croissant                                                 |
+| Les paramètres sont un pointeur sur entier et le nombre             |
+| d'entiers dans le tableau                                           |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_sort_int_tab(int *tab, int size);                           |
+|                                                                     |
+----------------------------------------------------------------------

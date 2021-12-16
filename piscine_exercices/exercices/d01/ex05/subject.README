@@ -1,0 +1,12 @@
+------------------------------ ft_putstr ------------------------------
+| Required files: ft_putstr.c                                         |
+|                                                                     |
+| Authorized functions:                                               |
+| write                                                               |
+|                                                                     |
+| Ecrire une fonction qui affiche une chaine de caractères à l'écran  |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_putstr(char *str);                                          |
+|                                                                     |
+----------------------------------------------------------------------

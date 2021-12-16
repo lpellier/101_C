@@ -1,0 +1,15 @@
+----------------------------- ft_putchar ------------------------------
+| Required files: ft_putchar.c                                        |
+|                                                                     |
+| Authorized functions:                                               |
+| write                                                               |
+|                                                                     |
+| Ecrire une fonction qui affiche le caractère passé en paramètre     |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_putchar(char c);                                            |
+|                                                                     |
+| Example:                                                            |
+| write(1, &c, 1);                                                    |
+|                                                                     |
+----------------------------------------------------------------------

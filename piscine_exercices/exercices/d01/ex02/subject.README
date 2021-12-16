@@ -1,0 +1,13 @@
+------------------------------- ft_swap -------------------------------
+| Required files: ft_swap.c                                           |
+|                                                                     |
+| Authorized functions:                                               |
+| none                                                                |
+|                                                                     |
+| Ecrire une fonction qui échange le contenu de deux entiers          |
+| dont les adresses sont données en paramètres                        |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_swap(int *a; int *b);                                       |
+|                                                                     |
+----------------------------------------------------------------------

@@ -1,0 +1,13 @@
+------------------------------ ft_strdup ------------------------------
+| Required files: ft_strdup.c                                         |
+|                                                                     |
+| Authorized functions:                                               |
+| malloc                                                              |
+|                                                                     |
+| Ecrire une fonction qui prend une chaîne de caractères et renvoie   |
+| une copie allouée avec malloc                                       |
+|                                                                     |
+| Prototype:                                                          |
+| char * ft_strdup(char * str);                                       |
+|                                                                     |
+----------------------------------------------------------------------

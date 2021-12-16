@@ -1,0 +1,13 @@
+---------------------- ft_print_reverse_alphabet -----------------------
+| Required files: ft_print_reverse_alphabet.c                          |
+|                                                                      |
+| Authorized functions:                                                |
+| write                                                                |
+|                                                                      |
+| Ecrire une fonction qui affiche l'alphabet en miniscule sur une      |
+| seule ligne, dans l'ordre décroissant                                |
+|                                                                      |
+| Prototype:                                                           |
+| void ft_print_reverse_alphabet(void);                                |
+|                                                                      |
+-----------------------------------------------------------------------

@@ -1,0 +1,15 @@
+----------------------------- ft_div_mod ------------------------------
+| Required files: ft_div_mod.c                                        |
+|                                                                     |
+| Authorized functions:                                               |
+| none                                                                |
+|                                                                     |
+| Ecrire une fonction qui divise les deux paramètres a et b et        |
+| stocke le résultat dans l'int pointé par div                        |
+| Elle stock également le reste de la division de a et b dans l'int   |
+| pointé par mod                                                      |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_div_mod(int a, int b, int *div, int *mod);                  |
+|                                                                     |
+----------------------------------------------------------------------

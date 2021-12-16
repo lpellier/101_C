@@ -1,0 +1,13 @@
+------------------------------ ft_strlen ------------------------------
+| Required files: ft_strlen.c                                         |
+|                                                                     |
+| Authorized functions:                                               |
+| none                                                                |
+|                                                                     |
+| Ecrire une fonction qui compte le nombre de caractères dans une     |
+| chaîne de caractères et qui retourne le nombre trouvé               |
+|                                                                     |
+| Prototype:                                                          |
+| int ft_strlen(char *str);                                           |
+|                                                                     |
+----------------------------------------------------------------------

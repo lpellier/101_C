@@ -1,0 +1,17 @@
+You need to calculate the velocity vector of a ball depending on its coordinates
+
+Using that vector, you should be able to calculate the coordinates of the ball
+after any given amount of time
+
+You should also be able to tell whether the ball will hit the paddle
+and at which angle
+
+The paddle is located on the plane z == 0
+
+USAGE
+	./101pong x0 y0 z0 x1 y1 z1 n
+
+DESCRIPTION
+	x0, y0, z0 coordinates at time t - 1 (double)
+	x1, y1, z1 coordinates at time t (double)
+	n          time shift

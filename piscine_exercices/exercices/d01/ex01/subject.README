@@ -1,0 +1,14 @@
+--------------------------- ft_ultimate_ft ----------------------------
+| Required files: ft_ultimate_ft.c                                    |
+|                                                                     |
+| Authorized functions:                                               |
+| none                                                                |
+|                                                                     |
+| Ecrire une fonction qui prend un pointeur sur pointeur sur pointeur |
+| sur pointeur sur pointeur sur pointeur sur pointeur sur pointeur  . |
+| sur pointeur sur int en paramètre et donne à l'int la valeur de 42  |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_ultimate_ft(int *********nbr);                              |
+|                                                                     |
+----------------------------------------------------------------------

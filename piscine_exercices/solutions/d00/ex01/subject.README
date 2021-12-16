@@ -1,0 +1,13 @@
+-------------------------- ft_print_alphabet ---------------------------
+| Required files: ft_print_alphabet.c                                 |
+|                                                                     |
+| Authorized functions:                                               |
+| write                                                               |
+|                                                                     |
+| Ecrire une fonction qui affiche l'alphabet en minuscule             |
+| sur une seule ligne dans l'ordre croissant                          |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_print_alphabet(void);                                       |
+|                                                                     |
+----------------------------------------------------------------------

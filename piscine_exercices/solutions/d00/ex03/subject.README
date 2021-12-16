@@ -1,0 +1,13 @@
+-------------------------- ft_print_numbers ---------------------------
+| Required files: ft_print_numbers.c                                  |
+|                                                                     |
+| Authorized functions:                                               |
+| write                                                               |
+|                                                                     |
+| Ecrire une fonction qui affiche tous les chiffres sur une seule     |
+| ligne, dans l'ordre croissant                                       |
+|                                                                     |
+| Prototype:                                                          |
+| void ft_print_numbers(void);                                        |
+|                                                                     |
+----------------------------------------------------------------------
