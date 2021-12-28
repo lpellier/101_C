@@ -39,13 +39,37 @@ void	print_matrix(int ** matrix, int lines, int cols) {
 	}
 }
 
+int	get_word_nbr(char * str) {
+	int count = 0;
+	int i = 0;
+	while (str[i]) {
+		if (str[i] == 32)
+			count++;
+		i++;
+	}
+	return count;
+}
+
+int	get_next_nbr(char * str) {
+	static int index = 0;
+	int ret = 0;
+	while (str[index]) {
+		if (!str[index] || str[index] == 32)
+			break;
+		ret = ret * 10 + str[index] - 48;
+		index++;
+	}
+	index++;
+	return ret;
+}
+
 int main(int ac, char ** av) {
 	if (ac != 4)
 		exit(EXIT_FAILURE);
 	
 	char *	msg = av[1];
 	char *	key = av[2];
-	// int		method = atoi(av[3]);
+	int		method = atoi(av[3]);
 	
 	// ENCRYPTION
 	// Get key in a square matrix, smallest possible size
@@ -69,75 +93,89 @@ int main(int ac, char ** av) {
 	print_matrix(key_matrix, matrix_size, matrix_size);
 	
 	// Get message in a matrix; its number of columns must fit the key matrix size
-	int	line_nbr = get_matrix_size(strlen(msg), matrix_size);
-	int ** msg_matrix = malloc(sizeof(int *) * line_nbr);
-	for (int i = 0; i < line_nbr; i++)
-		msg_matrix[i] = malloc(sizeof(int) * matrix_size);
+	if (method == 0) {
+		int	line_nbr = get_matrix_size(strlen(msg), matrix_size);
+		int ** msg_matrix = malloc(sizeof(int *) * line_nbr);
+		for (int i = 0; i < line_nbr; i++)
+			msg_matrix[i] = malloc(sizeof(int) * matrix_size);
 
-	init_matrix(msg_matrix, line_nbr, matrix_size);
+		init_matrix(msg_matrix, line_nbr, matrix_size);
 
-	for (int i = 0; i < line_nbr; i++) {
-		for (int j = 0; j < matrix_size; j++) {
-			if (!msg[(i * matrix_size) + j])
-				break ;
-			msg_matrix[i][j] = msg[(i * matrix_size) + j];
-		}
-	}
-
-	// printf("Message matrix:\n");
-	// print_matrix(msg_matrix, line_nbr, matrix_size);
-
-	// Multiply the two matrices which gives the encrypted message
-	int ** result_matrix = malloc(sizeof(int *) * line_nbr);
-	for (int i = 0; i < line_nbr; i++)
-		result_matrix[i] = malloc(sizeof(int) * matrix_size);
-
-	init_matrix(result_matrix, line_nbr, matrix_size);
-	
-	for (int i = 0; i < line_nbr; i++) {
-		for (int j = 0; j < matrix_size; j++) {
-			for (int k = 0; k < matrix_size; k++) {
-				result_matrix[i][j] += msg_matrix[i][k] * key_matrix[k][j];
+		for (int i = 0; i < line_nbr; i++) {
+			for (int j = 0; j < matrix_size; j++) {
+				if (!msg[(i * matrix_size) + j])
+					break ;
+				msg_matrix[i][j] = msg[(i * matrix_size) + j];
 			}
 		}
-	}
 
-	printf("Encrpyted message:\n");
-	for (int i = 0; i < line_nbr; i++) {
-		for (int j = 0; j < matrix_size; j++) {
-			printf("%d ", result_matrix[i][j]);
-		}
-	}
-	printf("\n");
+		// printf("Message matrix:\n");
+		// print_matrix(msg_matrix, line_nbr, matrix_size);
 
-	// DECRYPTION
-	// Inverse key matrix
-
-	float det = determinant(key_matrix, matrix_size);
-	if (det == 0)
-		printf("Since the determinant is zerp (0), therefore inverse is not possible.\n");
-	else {
-		float	** result_inverse = malloc(sizeof(float *) * line_nbr);
+		// Multiply the two matrices which gives the encrypted message
+		int ** result_matrix = malloc(sizeof(int *) * line_nbr);
 		for (int i = 0; i < line_nbr; i++)
-			result_inverse[i] = malloc(sizeof(float) * matrix_size);
-		float ** inverse;
-		inverse = cofactor(key_matrix, matrix_size);
+			result_matrix[i] = malloc(sizeof(int) * matrix_size);
+
+		init_matrix(result_matrix, line_nbr, matrix_size);
+		
 		for (int i = 0; i < line_nbr; i++) {
 			for (int j = 0; j < matrix_size; j++) {
 				for (int k = 0; k < matrix_size; k++) {
-					result_inverse[i][j] += result_matrix[i][k] * inverse[k][j];
+					result_matrix[i][j] += msg_matrix[i][k] * key_matrix[k][j];
 				}
 			}
 		}
-		printf("Decrpyted message:\n");
+
+		printf("Encrpyted message:\n");
 		for (int i = 0; i < line_nbr; i++) {
 			for (int j = 0; j < matrix_size; j++) {
-				printf("%c", (int)result_inverse[i][j]);
+				printf("%d ", result_matrix[i][j]);
+			}
+		}
+		printf("\n");
+		free_matrix(msg_matrix, line_nbr);
+		free_matrix(result_matrix, line_nbr);
+	}
+	else {
+		// DECRYPTION
+		// Inverse key matrix
+		int	line_nbr = get_matrix_size(get_word_nbr(av[1]), matrix_size);
+		int ** encrypted_matrix = malloc(sizeof(int *) * line_nbr);
+		for (int i = 0; i < line_nbr; i++)
+			encrypted_matrix[i] = malloc(sizeof(int) * matrix_size);
+		
+		for (int i = 0; i < line_nbr; i++) {
+			for (int j = 0; j < matrix_size; j++) {
+				encrypted_matrix[i][j] = get_next_nbr(av[1]);
+			}
+		}
+
+		float det = determinant(key_matrix, matrix_size);
+		if (det == 0)
+			printf("Since the determinant is zerp (0), therefore inverse is not possible.\n");
+		else {
+			float	** result_inverse = malloc(sizeof(float *) * line_nbr);
+			for (int i = 0; i < line_nbr; i++)
+				result_inverse[i] = malloc(sizeof(float) * matrix_size);
+			float ** inverse;
+			inverse = cofactor(key_matrix, matrix_size);
+			for (int i = 0; i < line_nbr; i++) {
+				for (int j = 0; j < matrix_size; j++) {
+					for (int k = 0; k < matrix_size; k++) {
+						result_inverse[i][j] += encrypted_matrix[i][k] * inverse[k][j];
+					}
+				}
+			}
+			printf("Decrpyted message:\n");
+			for (int i = 0; i < line_nbr; i++) {
+				for (int j = 0; j < matrix_size; j++) {
+					printf("%c", (int)(roundf(result_inverse[i][j])));
+				}
 			}
 		}
 	}
 
+
 	free_matrix(key_matrix, matrix_size);
-	free_matrix(msg_matrix, line_nbr);
-	free_matrix(result_matrix, line_nbr);
 }
