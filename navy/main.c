@@ -40,6 +40,7 @@ void	check_game_state(char * map) {
 
 void	start_attack() {
 	char	*buf = NULL;
+	char buf[2];
 
 	while (42) {
 		printf("attack: \e[3m");
@@ -54,6 +55,7 @@ void	start_attack() {
 	}
 	global.att_point.x = buf[0] - 'A';
 	global.att_point.y = buf[1] - '0' - 1;
+	// D (3) 6 (5)
 	for (int i = 0; i < global.att_point.x; i++) {
 		kill(global.other_pid, SIGUSR1);
 		usleep(100);
