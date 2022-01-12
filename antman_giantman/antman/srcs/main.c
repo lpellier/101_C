@@ -161,11 +161,11 @@ int		main(int ac, char **av) {
 	init_dict(&dict);
 	update_dict(&dict, file_content);
 	printf("\n");
-	for (unsigned int i = 128; i < 256; i++) {
-		if (!dict[i])
-			break ;
-		// printf("%s\n", dict[i]);
-		printf("%.3d %3s\n", i, (dict)[i]);
-	}
+	// for (unsigned int i = 128; i < 256; i++) {
+	// 	if (!dict[i])
+	// 		break ;
+	// 	// printf("%s\n", dict[i]);
+	// 	printf("%.3d %3s\n", i, (dict)[i]);
+	// }
 
 }

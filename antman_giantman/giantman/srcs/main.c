@@ -158,10 +158,7 @@ void	update_dict(unsigned char *** dict, unsigned char * file_content) {
 	int	prefix_code = 0;
 	int	i = 1;
 	int	dict_index = 128;
-	// int _bool = false;
 
-	// printf("alo\n");
-	// mo dify file content
 	prefix = update_prefix(file_content[0]);
 	while (file_content[i]) {
 		if (content_in_dict(*dict, prefix, &prefix_code)) {
@@ -183,11 +180,6 @@ void	update_dict(unsigned char *** dict, unsigned char * file_content) {
 		replace_prefix(*dict, &file_content);
 		i++;
 	}
-	// for (unsigned int i = 128; i < 256; i++) {
-	// 	if (!((*dict)[i]))
-	// 		break ;
-	// 	replace_prefix(*dict, &(*dict)[i]);
-	// }
 	print_prefix(*dict, file_content);
 }
 
@@ -201,12 +193,10 @@ int		main(int ac, char **av) {
 	init_dict(&dict);
 	update_dict(&dict, file_content);
 	printf("\n");
-	for (unsigned int i = 128; i < 256; i++) {
-		if (!dict[i])
-			break ;
-		// printf("%s\n", dict[i]);
-		printf("%.3d %3s\n", i, (dict)[i]);
-	}
-
-
+	// for (unsigned int i = 128; i < 256; i++) {
+	// 	if (!dict[i])
+	// 		break ;
+	// 	// printf("%s\n", dict[i]);
+	// 	printf("%.3d %3s\n", i, (dict)[i]);
+	// }
 }
