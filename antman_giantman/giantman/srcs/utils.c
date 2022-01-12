@@ -18,7 +18,7 @@ size_t	ft_ustrlen(unsigned char * str) {
 	return (i);
 }
 
-int		ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(unsigned char *s1, unsigned char *s2)
 {
 	int i;
 
@@ -28,12 +28,12 @@ int		ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char *	ft_strdup(char * str) {
-	char *	ret;
+unsigned char *	ft_strdup(unsigned char * str) {
+	unsigned char *	ret;
 	int		i;
 
 	i = 0;
-	ret = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	ret = malloc(sizeof(unsigned char) * (ft_ustrlen(str) + 1));
 	while (str[i]) {
 		ret[i] = str[i];
 		i++;

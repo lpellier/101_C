@@ -16,7 +16,22 @@
 //     END WHILE
 //     output code for P 
 
-#include "../includes/giantman.h"
+#include "../includes/antman.h"
+
+void	decode_and_print(unsigned char ** dict, unsigned char * prefix) {
+	int	i = 0;
+	while (prefix[i]) {
+		int j = 0;
+		while (dict[(int)prefix[i]][j]) {
+			if (dict[(int)prefix[i]][j] > 127)
+				decode_and_print(dict, dict[(int)prefix[i]]);
+			else
+				printf("%c", dict[(int)prefix[i]][j]);
+			j++;
+		}
+		i++;
+	}
+}
 
 unsigned char *	get_file(char * file_path) {
 	int	fd = open(file_path, O_RDONLY);
@@ -50,6 +65,7 @@ void	init_dict(unsigned char *** dict) {
 		(*dict)[i] = malloc(sizeof(unsigned char) * 2);
 		(*dict)[i][0] = (unsigned char)i;
 		(*dict)[i][1] = '\0';
+		// printf("%.3d %3s\n", i, (*dict)[i]);
 	}
 	for (unsigned int i = 128; i < 256; i++)
 		(*dict)[i] = NULL;
@@ -59,13 +75,14 @@ void	init_dict(unsigned char *** dict) {
 int		content_in_dict(unsigned char ** dict, unsigned char * prefix, int * prefix_code) {
 	int		i;
 
+	if (!prefix)
+		return true;
 	i = 0;
 	while (i < 256) {
 		if (!dict[i])
 			return (false);
 		else if (!ft_strcmp(dict[i], prefix)) {
-			if (prefix_code)
-				*prefix_code = i;
+			*prefix_code = i;
 			return (true);
 		}
 		i++;
@@ -87,109 +104,98 @@ void	secure_free(void ** ptr) {
 	}
 }
 
-int		next_is_code(unsigned char ** dict, unsigned char * file_content, int i) {
-	unsigned char * prefix;
-	i--;
-	prefix = update_prefix(file_content[i]);
-	if (content_in_dict(dict, prefix, NULL)) {
-		i++;
-		prefix = ft_append_uchar(prefix, file_content[i]);
-		if (content_in_dict(dict, prefix, NULL))
-			return true;
-	}
-	return false;
-}
-
-void	print_prefix(unsigned char ** dict, unsigned char * prefix) {
-	int	i = 0;
-
-	while (prefix[i]) {
-		if (prefix[i] > 127 && dict[prefix[i]])
-			print_prefix(dict, dict[prefix[i]]);
-		else
-			printf("%c", prefix[i]);
-		i++;
-	}
-}
-
-unsigned char *	insert_str(unsigned char * str, int i, unsigned char * added) {
-	unsigned char * ret = malloc(sizeof(unsigned char) * (ft_ustrlen(str) + ft_ustrlen(added) + 1));
-	int	str_index = 0;
-	int k = 0;
-
-	while (str[str_index] && str_index < i) {
-		ret[k] = str[str_index];
-		str_index++;
-		k++;
-	}
-	int add_index = 0;
-	while (added[add_index]) {
-		ret[k] = added[add_index];
-		k++;
-		add_index++;
-	}
-	str_index++;
-	while (str[str_index]) {
-		ret[k] = str[str_index];
-		k++;
-		str_index++;
-	}
-	ret[k] = '\0';
-	return ret;
-} 
-
-void	replace_prefix(unsigned char ** dict, unsigned char ** prefix) {
-	int		i = 0;
-	while ((*prefix)[i]) {
-		if ((*prefix)[i] > 127 && dict[(*prefix)[i]]) {
-			replace_prefix(dict, &dict[(*prefix)[i]]);
-			unsigned char * tmp = *prefix;
-			// *prefix = remove_str()
-			*prefix = insert_str(*prefix, i, dict[(*prefix)[i]]);
-			secure_free((void **)&tmp);
-		}
-		i++;
-	}
-}
-
 void	update_dict(unsigned char *** dict, unsigned char * file_content) {
 	unsigned char * prefix = NULL;
 	unsigned char * tmp = NULL;
 	int	prefix_code = 0;
 	int	i = 1;
 	int	dict_index = 128;
-	// int _bool = false;
 
-	// printf("alo\n");
-	// mo dify file content
 	prefix = update_prefix(file_content[0]);
 	while (file_content[i]) {
 		if (content_in_dict(*dict, prefix, &prefix_code)) {
+			if (prefix_code > 127)
+				printf("%c", (unsigned char)prefix_code);
 			tmp = prefix;
 			prefix = ft_append_uchar(prefix, file_content[i]);
 			secure_free((void **)&tmp);
 		}
-		else {
-			if (dict_index < 256) {
-				secure_free((void **)&(*dict)[dict_index]);
-				(*dict)[dict_index] = ft_strdup(prefix);
-				dict_index++;
-			}
+		else if (dict_index < 256) {
+			(*dict)[dict_index] = ft_strdup(prefix);
+			dict_index++;
+			if (prefix_code <= 127)
+				printf("%s", prefix);
 			tmp = prefix;
-			i--;
 			prefix = update_prefix(file_content[i]);
 			secure_free((void **)&tmp);
 		}
-		replace_prefix(*dict, &file_content);
+		else {
+			printf("%s", prefix);
+			tmp = prefix;
+			prefix = update_prefix(file_content[i]);
+			secure_free((void **)&tmp);
+		}
 		i++;
 	}
-	// for (unsigned int i = 128; i < 256; i++) {
-	// 	if (!((*dict)[i]))
-	// 		break ;
-	// 	replace_prefix(*dict, &(*dict)[i]);
-	// }
-	print_prefix(*dict, file_content);
+
 }
+
+// void	update_dict(char *** dict, unsigned char * file_content) {
+// 	char *	prefix;
+// 	char *	tmp;
+// 	int		i;
+// 	int		prefix_code;
+// 	int		dict_index;
+
+// 	tmp = NULL;
+// 	prefix = NULL;
+// 	i = 0;
+// 	prefix_code = 0;
+// 	dict_index = 128;
+// 	while (file_content[i]) {
+// 		if (content_in_dict(*dict, prefix, &prefix_code)) {
+// 			if (!prefix) {
+// 				prefix = malloc(sizeof(char) * 2);
+// 				prefix[0] = file_content[i];
+// 				prefix[1] = '\0';
+// 			}
+// 			else {
+// 				tmp = prefix;
+// 				prefix = ft_append_char(prefix, file_content[i]);
+// 				free(tmp);
+// 				tmp = NULL;
+// 			}
+// 			if (prefix_code > 127) {
+// 				printf("%c", prefix_code);
+// 				free(prefix);
+// 				prefix = malloc(sizeof(char) * 2);
+// 				prefix[0] = file_content[i];
+// 				prefix[1] = '\0';
+// 			}
+// 		}
+// 		else if (dict_index < 256){
+// 			(*dict)[dict_index] = ft_strdup(prefix);
+// 			dict_index++;
+// 			// decode_and_print(*dict, prefix);
+// 			printf("%s", prefix);
+// 			free(prefix);
+// 			prefix = malloc(sizeof(char) * 2);
+// 			prefix[0] = file_content[i];
+// 			prefix[1] = '\0';
+// 		}
+// 		else {
+// 			// decode_and_print(*dict, prefix);
+// 			printf("%s", prefix);
+// 			free(prefix);
+// 			prefix = malloc(sizeof(char) * 2);
+// 			prefix[0] = file_content[i];
+// 			prefix[1] = '\0';	
+// 		}
+// 		// else
+// 		// 	printf("%s", prefix);
+// 		i++;
+// 	}
+// }
 
 int		main(int ac, char **av) {
 	unsigned char *	file_content;
@@ -201,12 +207,12 @@ int		main(int ac, char **av) {
 	init_dict(&dict);
 	update_dict(&dict, file_content);
 	printf("\n");
-	for (unsigned int i = 128; i < 256; i++) {
+	for (unsigned int i = 32; i < 256; i++) {
 		if (!dict[i])
 			break ;
 		// printf("%s\n", dict[i]);
 		printf("%.3d %3s\n", i, (dict)[i]);
 	}
-
+	// printf("%s\n", file_content);
 
 }
