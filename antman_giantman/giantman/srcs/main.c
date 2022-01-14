@@ -140,11 +140,12 @@ unsigned char *	insert_str(unsigned char * str, int i, unsigned char * added) {
 
 void	replace_prefix(unsigned char ** dict, unsigned char ** prefix) {
 	int		i = 0;
+	if (!dict || !(*prefix))
+		return;
 	while ((*prefix)[i]) {
 		if ((*prefix)[i] > 127 && dict[(*prefix)[i]]) {
 			replace_prefix(dict, &dict[(*prefix)[i]]);
 			unsigned char * tmp = *prefix;
-			// *prefix = remove_str()
 			*prefix = insert_str(*prefix, i, dict[(*prefix)[i]]);
 			secure_free((void **)&tmp);
 		}
