@@ -20,6 +20,7 @@ void    handle_signal(int signal, siginfo_t *si, void *context)
 		else if (signal == SIGUSR2 && first == 1) {
 			global.response = _void;
 			kill(global.pid, SIGUSR1);
+			
 		}
 	}
 	else if (global.response == _void && signal == SIGUSR1) {
