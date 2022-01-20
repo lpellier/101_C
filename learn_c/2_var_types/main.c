@@ -15,6 +15,14 @@
 // modulo : %
 // assignment : =
 
+// you can use each of these operators while assigning a variable
+// instead of writing :
+// int a = 5;
+// a = a + 5;
+// i could write :
+// int a = 5;
+// a += 5
+
 int main() {
 	// declare a variable of type int named "a" and set its value to 3
 	// declare a variable of type float named "b" and set its value to 4.5
