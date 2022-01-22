@@ -4,19 +4,18 @@
  * @brief // ? minishell1 : recreate a UNIX command interpreter
  // ? reference shell is TCSH
  * 
- * @details // ! Display a prompt : "$>" or current directory
- * @details // ! Validated by a newline
- * @details // ! no pipes or redirections
- * @details // ! handle signals (^C, ^D (display "exit"))
+ * @details //   Display a prompt : "$>" or current directory
+ * @details //   Validated by a newline
+ * @details //   no pipes or redirections
+ * @details //   handle ^D
  * @details // ! executables are those found in PATH (get env)
- * @details // ! errors must display appropriate message (refer to tcsh) in stderr
+ * @details //   errors must display appropriate message (refer to tcsh) in stderr
  * @details // ? built-ins : 
  // ! 			- cd : 0-1 argument
  	// !			- if used with no arguments : go to $HOME, if $HOME unset then don't change directory
  	// !			- if used with one argument : absolute path name (starts with "/") otherwise relative path 
  	// !			- if used with argument "-" : changes to previous directory ($PWD, $OLDPWD)
  	// !			- return codes : 0 (success) ; 1 (no $HOME, no $OLDPWD, search failed) ; 2 (incorrect option, too many arguments)
- 
  // !			- setenv : 0-2 arguments
  	// !			- if used with no arguments : prints the name and values of all environment variables
  	// !			- if used with one argument : sets environment variable to the null string
@@ -50,11 +49,6 @@ void	display_prompt(t_info * info) {
 	ft_putstr(STDOUT, info->prompt);
 }
 
-void	handle_signal(int signal) {
-	if (signal == SIGINT || signal == SIGQUIT)
-		g_signal = 1;
-}
-
 int 	main(int argc, char ** argv, char ** envp) {
 	t_info *	info;
 	bool		error;
@@ -68,9 +62,6 @@ int 	main(int argc, char ** argv, char ** envp) {
 
 	// ? Init info struct
 	init_info(&info, envp);
-
-	// signal(SIGINT, handle_signal);
-	// signal(SIGQUIT, handle_signal);
 
 	// ? Infinite loop
 	while (info->error_code == SUCCESS && info->exit_status == RUNNING) {
