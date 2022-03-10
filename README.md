@@ -3,6 +3,7 @@ Here you'll find a collection of projects and lessons I used whenever I gave les
 
 # epitech_projects
 I helped a student at Epitech School on a number of his projects, which are all in this folder
+-> these are not the cleanest projects since i'm only doing these to prepare classes for my student
 
 # learn_c
 Lessons I made, consisting of information on specific "chapters" of C accompagnied by related exercices
