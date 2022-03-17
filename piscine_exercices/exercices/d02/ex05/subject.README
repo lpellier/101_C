@@ -1,0 +1,14 @@
+--------------------------- ft_ultimate_ft ----------------------------
+| Required files: ft_str_is_uppercase.c                               |
+|                                                                     |
+| Authorized functions:                                               |
+| none                                                                |
+|                                                                     |
+| Write a function that returns 1 if the string passed as argument    |
+| contains only uppercase alphabetical characters and returns 0       |
+| if the string contains other characters                             |
+|                                                                     |
+| Prototype:                                                          |
+| int	ft_str_is_uppercase(char *str);                               |
+|                                                                     |
+----------------------------------------------------------------------

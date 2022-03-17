@@ -71,6 +71,7 @@ int main(int ac, char **av) {
 	// authorized functions
 	std::cout << "Authorized functions (\"stop\" to move on)" << std::endl;
 	printLine(subject, "Authorized functions: ");
+	std::cin.clear();
 	while (42) {
 		std::getline(std::cin, cmd);
 		if (cmd == "stop")
@@ -84,6 +85,7 @@ int main(int ac, char **av) {
 	// // precisions
 	std::cout << "Precisions (\"stop\" to move on)" << std::endl;
 	// printLine(subject, "Precisions: ");
+		
 	while (42) {
 		std::getline(std::cin, cmd);
 		if (cmd == "stop")
