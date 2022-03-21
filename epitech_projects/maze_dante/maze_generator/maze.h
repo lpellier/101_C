@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <stdio.h>
 
-
 enum directions {
 	WEST,
 	EAST,
@@ -24,3 +23,5 @@ typedef struct s_cell {
 	int y;
 	int x;
 } t_cell;
+
+

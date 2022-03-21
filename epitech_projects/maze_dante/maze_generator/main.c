@@ -38,14 +38,8 @@ void pop(int *top, int stackSize) {
 t_cell	new_cell(int y, int x) {
 	t_cell ret;
 
-	ret.edges[WEST] = 1;
-	ret.edges[EAST] = 1;
-	ret.edges[NORTH] = 1;
-	ret.edges[SOUTH] = 1;
-	ret.edges[NO_WE] = 1;
-	ret.edges[NO_EA] = 1;
-	ret.edges[SO_WE] = 1;
-	ret.edges[SO_EA] = 1;
+	for (int i = 0; i < 8; i++)
+		ret.edges[i] = 1;
 	if (y == 0) {
 		ret.edges[NORTH] = -1;
 		ret.edges[NO_WE] = -1;
@@ -107,6 +101,7 @@ t_cell *	random_neighbour(t_cell ** maze, t_cell * current_cell, int * direction
 		return &(maze[y][x + 1]);
 	}
 	return (random_neighbour(maze, current_cell, direction));	
+
 }
 
 void	display_maze(t_cell ** maze, int fill_width, int fill_height) {
@@ -157,6 +152,8 @@ int main(int ac, char ** av) {
 
 	int top = -1;
 	int opposites[4] = {EAST, WEST, SOUTH, NORTH};
+
+
 
 	// also should check that arguments passed are positive numbers
 	if (ac != 3) {
