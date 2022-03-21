@@ -1,0 +1,12 @@
+--------------------------- ft_ultimate_ft ----------------------------
+| Required files: ft_strncpy.c                                        |
+|                                                                     |
+| Authorized functions:                                               |
+| none                                                                |
+|                                                                     |
+| Reproduire a l'identique le comportement de la fonction strncpy     |
+|                                                                     |
+| Prototype:                                                          |
+| char	*ft_strncpy(char *dest, char *src, unsigned int n);           |
+|                                                                     |
+----------------------------------------------------------------------
