@@ -9,6 +9,16 @@
 #include <time.h>
 #include <dirent.h>
 
+# define BLACK		0
+# define RED		1
+# define GREEN		2
+# define YELLOW		3
+# define BLUE		4
+# define MAGENTA	5
+# define CYAN		6
+# define WHITE		7
+# define VOID		8
+
 #ifndef bool
 # define bool char
 #endif
@@ -35,9 +45,20 @@ typedef struct	s_tetrimino {
 	int		color;
 
 	bool	error;
-
+ 
 	struct s_tetrimino *	next;
 }				t_tetrimino;
+
+typedef struct	s_cur_piece {
+	size_t	pos_x;
+	size_t	pos_y;
+
+	size_t	width;
+	size_t	height;
+
+	char **	shape;
+}				t_cur_piece;
+
 
 typedef struct	s_keys {
 	int	left;
@@ -48,16 +69,27 @@ typedef struct	s_keys {
 	int	pause;
 }				t_keys;
 
+typedef struct	s_list {
+	size_t	y;
+	size_t	x;
+
+	struct s_list *	next;
+}				t_list;
+
 typedef struct	s_info {
 	size_t	map_width;
 	size_t	map_height;
 
 	t_tetrimino *	pieces;
 	t_keys *		keys;
-	bool **			map;
+	char **			map;
 
-	t_tetrimino *	next_piece;
-	
+	t_tetrimino *	next_pieces;
+
+	bool			time_for_next_piece;
+	t_cur_piece		current_piece;
+	t_list *		downward_faces;
+
 	/* 		**** OPTIONS ****	   */
 	bool			debug_mode;
 	bool			without_next;

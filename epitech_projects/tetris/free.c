@@ -35,6 +35,6 @@ void	free_info(t_info ** info) {
 		secure_free((void **)&((*info)->keys));
 		secure_free_array((void ***)&((*info)->map), (*info)->map_height);
 		secure_free_tet_list((void **)&((*info)->pieces));
-		secure_free_tet_list((void **)&((*info)->next_piece));
+		secure_free_tet_list((void **)&((*info)->next_pieces));
 	}
 }

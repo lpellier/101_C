@@ -6,6 +6,7 @@ void	init_curses() {
 	keypad(stdscr, TRUE); // set fn keys
 	noecho(); // prevent echo-ing while getch
 	curs_set(0); // remove cursor
+	timeout(0);
 }
 
 void	init_keys(t_keys * keys) {
@@ -55,11 +56,16 @@ char *	concatenate(char * s1, char * s2) {
 t_tetrimino *	copy_tetrimino(t_tetrimino * src) {
 	t_tetrimino *	ret = malloc(sizeof(t_tetrimino));
 
-	ret->name = src->name;
+	ret->name = strdup(src->name);
 
 	ret->width = src->width;
 	ret->height = src->height;
-	ret->shape = src->shape;
+	ret->shape = malloc(sizeof(char *) * ret->height);
+	for (size_t i = 0; i < ret->height; i++) {
+		ret->shape[i] = malloc(sizeof(char) * ret->width);
+		for (size_t j = 0; j < ret->width; j++)
+			ret->shape[i][j] = src->shape[i][j];
+	}
 	ret->color = src->color;
 	
 	ret->error = src->error;
@@ -67,6 +73,27 @@ t_tetrimino *	copy_tetrimino(t_tetrimino * src) {
 	ret->next = NULL;
 	
 	return (ret);
+}
+
+void	rearrange_shape(t_tetrimino * src) {
+	for (size_t i = 0; i < src->height; i++) {
+		if (strlen(src->shape[i]) < src->width) {
+			char * tmp = src->shape[i];
+			src->shape[i] = malloc(sizeof(char) * src->width);
+			strcpy(src->shape[i], tmp);
+			for (size_t z = strlen(tmp); z < src->width; z++)
+				src->shape[i][z] = ' ';
+			secure_free((void **)&tmp);
+		}
+		for (size_t j = 0; j < src->width; j++) {
+			if (src->shape[i][j] == ' ')
+				src->shape[i][j] = VOID;
+			else if (src->shape[i][j] == '*')
+				src->shape[i][j] = src->color;
+			else
+				src->error = true;
+		}
+	}
 }
 
 t_tetrimino *	new_tetrimino(char * file_name, char * found) {
@@ -80,10 +107,6 @@ t_tetrimino *	new_tetrimino(char * file_name, char * found) {
 	secure_free((void **)&full_file_name);
 
 	ret->name = strndup(file_name, (found - file_name));
-	ret->width = 0;
-	ret->height = 0;
-	ret->shape = NULL;
-	ret->color = -1;
 	ret->error = false;
 	ret->next  = NULL;
 
@@ -107,12 +130,15 @@ t_tetrimino *	new_tetrimino(char * file_name, char * found) {
 	}
 
 	fclose(file);
+
+	rearrange_shape(ret);
+
 	return (ret);
 }
 
 void	init_info(t_info * info) {
-	info->map_width = 10;
-	info->map_height = 20;
+	info->map_width = 20;
+	info->map_height = 10;
 
 	info->pieces = NULL;
 	info->keys = malloc(sizeof(t_keys));
@@ -121,10 +147,12 @@ void	init_info(t_info * info) {
 	for (size_t i = 0; i < info->map_height; i++) {
 		info->map[i] = malloc(sizeof(char) * info->map_width);
 		for (size_t j = 0; j < info->map_width; j++)
-			info->map[i][j] = false;
+			info->map[i][j] = VOID;
 	}
 
-	info->next_piece = NULL;
+	info->next_pieces = NULL;
+	info->time_for_next_piece = true;
+	info->downward_faces = NULL;
 
 	info->debug_mode = false;
 	info->without_next = false;
@@ -139,7 +167,7 @@ int		get_args(int ac, char ** av, t_info *info) {
 	// put ':' in the starting of the
 	// string so that program can 
 	//distinguish between '?' and ':' 
-	while((opt = getopt(ac, av, ":L:l:r:t:d:q:p:wD")) != -1) 
+	while ((opt = getopt(ac, av, ":L:l:r:t:d:q:p:wD")) != -1) 
 	{
 		switch(opt)
 		{
