@@ -1,5 +1,0 @@
-.chipsets:
-input i
-output i
-.links:
-i:1 o:1
