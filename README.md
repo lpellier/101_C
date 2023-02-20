@@ -1,12 +1,42 @@
+[![Last Commit][last-commit]][project-url]
+[![Total Lines][total-lines]][project-url]
+[![Stargazers][stars-shield]][stars-url]
+
+[![Built With][built-with-c]][project-url]
+
 # 101_C
-Here you'll find a collection of projects and lessons I used whenever I gave lessons in C.
+Here you'll find a collection of projects and lessons I did whenever I gave lessons in C.
 
 # epitech_projects
-I helped a student at Epitech School on a number of his projects, which are all in this folder
--> these are not the cleanest projects since i'm only doing these to prepare classes for my student
+I helped a student at Epitech School on a number of his projects, which are all in this folder.
+
+These are not the cleanest projects since i'm only doing these to prepare classes for my student.
 
 # learn_c
-Lessons I made, consisting of information on specific "chapters" of C accompagnied by related exercices
+Lessons I made, consisting of information on specific "chapters" of C accompagnied by related exercices.
 
 # piscine_exercices
-A few exercises directly from 42 school's piscine. I used those to test my students.
+A few exercises directly from 42 school's piscine. I used these to test my students.
+
+## Contact
+
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+Lucas PELLIER - - pellierlucas@gmail.com
+
+Project Link: [101_C](https://github.com/lpellier/101_C)
+
+[built-with-c]: https://img.shields.io/badge/built%20with-C-blueviolet
+
+[project-url]: https://github.com/lpellier/101_C
+
+[total-lines]: https://img.shields.io/tokei/lines/github/lpellier/101_C
+[last-commit]: https://img.shields.io/github/last-commit/lpellier/101_C?style=flat
+
+[stars-shield]: https://img.shields.io/github/stars/lpellier/101_C.svg?style=flat
+[stars-url]: https://github.com/lpellier/101_C/stargazers
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?flat&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/linkedin_username
+[product-screenshot]: images/screenshot.png
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/ 
