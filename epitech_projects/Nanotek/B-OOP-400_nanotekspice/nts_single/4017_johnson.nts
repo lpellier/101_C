@@ -16,8 +16,6 @@
 #         out_3 -7-+ | | +-5- out_6
 #          out_4 -10-+ +-1- out_5
 
-# no clock inputs ?
-
 .chipsets:
 input in_0
 input in_1

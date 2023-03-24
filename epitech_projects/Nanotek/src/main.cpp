@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 			while (!sigint) {
 				circuit.simulate(1);
 				circuit.display();
-				std::this_thread::sleep_for(std::chrono::milliseconds(500));
+				// std::this_thread::sleep_for(std::chrono::milliseconds(500));
 			}
 			sigint = false;
 		}

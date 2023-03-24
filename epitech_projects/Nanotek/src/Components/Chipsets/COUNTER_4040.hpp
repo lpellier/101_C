@@ -6,7 +6,7 @@
 class COUNTER_4040: public nts::IComponent {
 	private:
 		bool	stop;
-		std::size_t		transposedArray[16];
+		std::size_t		transposedArray[12];
 
 	public:
 		COUNTER_4040(const std::string & name, const std::string & type): transposedArray{9, 7, 6, 5, 3, 2, 4, 13, 12, 14, 15, 1} {
@@ -39,18 +39,18 @@ class COUNTER_4040: public nts::IComponent {
 				this->pins[11]->setValue(this->pins[11]->getLink()->getValue());
 				if (this->pins[11]->getValue() == nts::TRUE) this->reset();
 				else if (oldValue == nts::FALSE && this->pins[10]->getValue() == nts::TRUE) { // ? low to high
-					this->compute(1);
-					this->compute(15);
-					this->compute(14);
-					this->compute(12);
-					this->compute(13);
-					this->compute(4);
-					this->compute(2);
-					this->compute(3);
-					this->compute(5);
-					this->compute(6);
-					this->compute(7);
 					this->compute(9);
+					this->compute(7);
+					this->compute(6);
+					this->compute(5);
+					this->compute(3);
+					this->compute(2);
+					this->compute(4);
+					this->compute(13);
+					this->compute(12);
+					this->compute(14);
+					this->compute(15);
+					this->compute(1);
 				}
 			}
 		}
@@ -59,23 +59,23 @@ class COUNTER_4040: public nts::IComponent {
 			if (!this->stop) {
 				std::size_t index = 0;
 				for (; transposedArray[index] != pin; index++); 
-				bool restIsTrue = true;
-				for (size_t i = index + 1; i < 12; i++) {
+				bool beforeIsTrue = true;
+				std::cout << pin << std::endl;
+				for (int i = index - 1; i >= 0; i--) {
 					if (this->pins[this->transposedArray[i]]->getValue() != nts::TRUE) {
-						restIsTrue = false;
+						beforeIsTrue = false;
 					}
 				}
-				if (restIsTrue) {
-					if (index == 0 && this->pins[pin]->getValue() == nts::TRUE) { // ? Case where the whole counter is done
-						this->pins[pin]->setValue(nts::FALSE);
+				if (beforeIsTrue) {
+					if (index == 11 && this->pins[pin]->getValue() == nts::TRUE) { // ? Case where the whole counter is done
 						this->stop = true;
-						for (size_t i = index + 1; i < 12; i++) {
+						for (size_t i = 0; i < 12; i++) {
 							this->pins[this->transposedArray[i]]->setValue(nts::FALSE);
 						}
 					} else if (this->pins[pin]->getValue() == nts::UNDEFINED || this->pins[pin]->getValue() == nts::FALSE) {
 						this->pins[pin]->setValue(nts::TRUE);
 						this->stop = true;
-						for (size_t i = index + 1; i < 12; i++) {
+						for (int i = index - 1; i >= 0; i--) {
 							this->pins[this->transposedArray[i]]->setValue(nts::FALSE);
 						}
 					}
@@ -87,9 +87,8 @@ class COUNTER_4040: public nts::IComponent {
 
 		void	reset() {
 			for (auto ite = this->pins.begin(); ite != this->pins.end(); ite++) {
-				(*ite).second->setValue(nts::UNDEFINED); // ? Undefined or FALSE ?
+				(*ite).second->setValue(nts::FALSE); // ? Undefined or FALSE ?
 			}
-			this->pins[11]->setValue(nts::UNDEFINED);
 			this->stop = false;
 		}
 

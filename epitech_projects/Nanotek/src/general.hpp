@@ -12,43 +12,31 @@ namespace nts {
     };
 
 	namespace gates {
-		nts::Tristate _and(const nts::Tristate & lhs, const nts::Tristate & rhs) {
-			if (lhs == nts::UNDEFINED || rhs == nts::UNDEFINED)
-				return nts::UNDEFINED;
-			else if (lhs == nts::TRUE && rhs == nts::TRUE)
-				return nts::TRUE;
-			return nts::FALSE;
+		Tristate _and(const Tristate &lhs, const Tristate &rhs) {
+			if (lhs == FALSE || rhs == FALSE) return FALSE;
+			else if (lhs == TRUE && rhs == TRUE) return TRUE;
+			return UNDEFINED;
 		}
-		nts::Tristate _or(const nts::Tristate & lhs, const nts::Tristate & rhs) {
-			if (lhs == nts::UNDEFINED || rhs == nts::UNDEFINED)
-				return nts::UNDEFINED;
-			else if (lhs == nts::TRUE || rhs == nts::TRUE)
-				return nts::TRUE;
-			return nts::FALSE;
+		Tristate _or(const Tristate &lhs, const Tristate &rhs) {
+			if (lhs == TRUE || rhs == TRUE) return TRUE;
+			else if (lhs == FALSE && rhs == FALSE) return FALSE;
+			return UNDEFINED;
 		}
-		nts::Tristate _not(const nts::Tristate & lhs) {
-			if (lhs == nts::UNDEFINED)
-				return nts::UNDEFINED;
-			else if (lhs == nts::TRUE)
-				return nts::FALSE;
-			else if (lhs == nts::FALSE)
-				return nts::TRUE;
-			return nts::UNDEFINED;
+		Tristate _not(const Tristate &lhs) {
+			if (lhs == UNDEFINED) return UNDEFINED;
+			else if (lhs == TRUE) return FALSE;
+			else return TRUE;
 		}
-		nts::Tristate _nor(const nts::Tristate & lhs, const nts::Tristate & rhs) {
+		Tristate _nor(const Tristate &lhs, const Tristate &rhs) {
 			return _not(_or(lhs, rhs));
 		}
-		nts::Tristate _nand(const nts::Tristate & lhs, const nts::Tristate & rhs) {
+		Tristate _nand(const Tristate &lhs, const Tristate &rhs) {
 			return _not(_and(lhs, rhs));
 		}
-
-		nts::Tristate _xor(const nts::Tristate & lhs, const nts::Tristate & rhs) {
-			if (lhs == nts::UNDEFINED || rhs == nts::UNDEFINED)
-				return nts::UNDEFINED;
-			else if (lhs != rhs)
-				return nts::TRUE;
-			else
-				return nts::FALSE;
+		Tristate _xor(const Tristate &lhs, const Tristate &rhs) {
+			if (lhs == UNDEFINED || rhs == UNDEFINED) return UNDEFINED;
+			else if (lhs != rhs) return TRUE;
+			else return FALSE;
 		}
 	};
 

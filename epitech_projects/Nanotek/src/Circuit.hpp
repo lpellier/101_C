@@ -36,7 +36,7 @@ class Circuit {
 
 		void	simulate(std::size_t tick) {
 			for (std::size_t i = 0; i < tick; i++) {
-					for (auto ite = this->components.begin(); i != this->components.end(); ite++) {
+					for (auto ite = this->components.begin(); ite != this->components.end(); ite++) {
 					if ((*ite).second->getType().compare("clock") != 0 && (*ite).second->getType().compare("output") != 0) {
 						(*ite).second->simulate(1);
 					}

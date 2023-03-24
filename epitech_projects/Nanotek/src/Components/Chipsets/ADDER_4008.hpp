@@ -76,6 +76,7 @@ class ADDER_4008: public nts::IComponent {
 			}
 			else if (pin == 9 || pin == 7 || pin == 6 || pin == 5 || pin == 4 || pin == 3 || pin == 2 || pin == 1 || pin == 15) {
 				Pin * link = this->pins[pin]->getLink();
+				if (!link) return nts::UNDEFINED;
 				this->pins[pin]->setValue(link->getValue());
 				return this->pins[pin]->getValue();
 			}
